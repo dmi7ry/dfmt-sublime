@@ -14,7 +14,13 @@ Integration of [**dfmt**](https://github.com/Hackerpilot/dfmt) with Sublime Text
 
 ### Method 1
 
+#### Sublime Text 2
+
 Place `dformat.sublime-package` file into your `Installed Packages` directory and restart Sublime to install the package.
+
+#### Sublime Text 3
+
+Place `dformat.sublime-package` file into your `<Sublime Text 3>\Packages` directory.
 
 ### Method 2
 

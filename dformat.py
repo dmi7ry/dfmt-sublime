@@ -12,7 +12,7 @@ class dformat(sublime_plugin.TextCommand):
 
         name = path + '\\sublime_dfmt_tmp'
 
-        print "[DFormat] Save text to file: " + name
+        # print "[DFormat] Save text to file: " + name
 
         # get text from current view
         all_text = sublime.Region(0, self.view.size())
