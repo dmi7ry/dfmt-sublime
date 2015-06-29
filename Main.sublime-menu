@@ -1,12 +1,36 @@
 [
-{
-	"caption":"DLang",
-	"id": "dlang",
-	"children":
-	[
-		{
-			"caption": "DFormat", "command": "dformat"
-		}
-	]
-}
+	{
+		"caption": "Preferences",
+		"mnemonic": "n",
+		"id": "preferences",
+		"children": [
+			{
+				"caption": "Package Settings",
+				"mnemonic": "P",
+				"id": "package-settings",
+				"children": [
+					{
+						"caption": "DFormat",
+						"children": [
+							{
+								"command": "open_file",
+								"args": {"file": "${packages}/DFormat/dformat.sublime-settings"},
+								"caption": "Settings – Default"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"caption":"DLang",
+		"id": "dlang",
+		"children":
+		[
+			{
+				"caption": "DFormat", "command": "dformat"
+			}
+		]
+	}
 ]

@@ -1,16 +1,31 @@
-import sublime, sublime_plugin, os
+import sublime, sublime_plugin, os, shutil, tempfile
+
+plugin_settings = None
+
+def read_settings(key, default):
+    global plugin_settings
+    if plugin_settings is None:
+        plugin_settings = sublime.load_settings('dformat.sublime-settings')
+
+    return sublime.active_window().active_view().settings().get(key, plugin_settings.get(key, default))
 
 class dformat(sublime_plugin.TextCommand):
+
     def run(self, edit):
-
         # get windows temporary directory
-        p = "WINDIR"
-        if p in os.environ:
-            path = os.path.join(os.environ[p], "temp")
-        else:
-            path = ''
 
-        name = path + '\\sublime_dfmt_tmp'
+        tmpdir = tempfile.mkdtemp("", "_dfmt_temp_")
+        name = tmpdir + '\\sublime_dfmt_tmp.d'
+
+        # check config file
+        config_path = read_settings('config_path', '')
+        if os.path.isfile(config_path):
+            # print "Config path: " + config_path
+            try:
+                shutil.copy(config_path, tmpdir)
+            except IOError:
+                # print 'Can\'t copy config file to ' + path
+                pass
 
         # print "[DFormat] Save text to file: " + name
 
@@ -36,5 +51,5 @@ class dformat(sublime_plugin.TextCommand):
 
         self.view.insert(edit, 0, formated)
 
-        # remove temporary file
-        os.remove(name)
+        # remove temporary file and dir
+        shutil.rmtree(tmpdir)
