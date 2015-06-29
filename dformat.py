@@ -18,7 +18,7 @@ class dformat(sublime_plugin.TextCommand):
         else:
             prefix = "/"
 
-        PY3 = sys.version_info[0] >= 3
+        # PY3 = sys.version_info[0] >= 3
 
         # get temporary directory
         tmpdir = tempfile.mkdtemp("", "_dfmt_temp_")
