@@ -1,4 +1,4 @@
-import sublime, sublime_plugin, os, shutil, tempfile
+import sublime, sublime_plugin, os, shutil, tempfile, sys
 
 plugin_settings = None
 
@@ -12,21 +12,31 @@ def read_settings(key, default):
 class dformat(sublime_plugin.TextCommand):
 
     def run(self, edit):
+
+        if sys.platform == "win32":
+            prefix = "\\"
+        else:
+            prefix = "/"
+
+        PY3 = sys.version_info[0] >= 3
+
         # get temporary directory
         tmpdir = tempfile.mkdtemp("", "_dfmt_temp_")
-        name = tmpdir + "\\sublime_dfmt_tmp.d"
+        name = tmpdir + prefix + "sublime_dfmt_tmp.d"
 
         # check config file
         config_path = read_settings("config_path", "")
         if os.path.isfile(config_path):
-            # print "Config path: " + config_path
+            print("[DFormat] Config path: " + config_path)
             try:
                 shutil.copy(config_path, tmpdir)
             except IOError:
-                sublime.status_message("Can't copy config file to " + path)
+                msg = "Can't copy config file to " + path
+                sublime.status_message(msg)
+                print(msg)
                 pass
 
-        # print "[DFormat] Save text to file: " + name
+        print("[DFormat] Save text to file: " + name)
 
         # get text from current view
         all_text = sublime.Region(0, self.view.size())
@@ -58,3 +68,4 @@ class dformat(sublime_plugin.TextCommand):
         shutil.rmtree(tmpdir)
 
         sublime.status_message(msg)
+        print(msg)
