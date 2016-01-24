@@ -1,0 +1,7 @@
+[
+	{
+		"keys": ["super+.", "super+f"],
+		"command": "dformat",
+		"context": [{ "key": "selector", "operator": "equal", "operand": "source.d" }]
+	}
+]
