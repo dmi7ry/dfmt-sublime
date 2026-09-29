@@ -31,7 +31,7 @@ class dformat(sublime_plugin.TextCommand):
             try:
                 shutil.copy(config_path, tmpdir)
             except IOError:
-                msg = "Can't copy config file to " + path
+                msg = "Can't copy config file to " + tmpdir
                 sublime.status_message(msg)
                 print(msg)
                 pass
